@@ -26,6 +26,7 @@ public class WeatherExcercise {
 	
 	public void getTemperature(String cityName){
         //returnTemperature
+		System.out.println(cityName + " Temperature:");
     }
 
 }
