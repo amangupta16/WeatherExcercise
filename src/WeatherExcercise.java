@@ -33,7 +33,7 @@ public class WeatherExcercise {
 	
 	public void getTemperature(String cityName) throws MalformedURLException, IOException{
         //returnTemperature
-		String path = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName;
+		String path = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&APPID=b083187d77e0904a1926547855fcfa57";
 		InputStream inpstr = new URL(path).openStream();
 		BufferedReader bfrdrdr = new BufferedReader(new InputStreamReader(inpstr, Charset.forName("UTF-8")));
 		StringBuilder strbldr = new StringBuilder();
@@ -41,6 +41,7 @@ public class WeatherExcercise {
 		while ((len = bfrdrdr.read()) != -1) {
 			strbldr.append((char) len);
 		}
+		System.out.println(strbldr);
     }
 
 }
