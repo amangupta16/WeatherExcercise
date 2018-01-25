@@ -42,6 +42,11 @@ public class WeatherExcercise {
 			strbldr.append((char) len);
 		}
 		System.out.println(strbldr);
+		String str = "\"main\":{\"temp\":";
+		int start = strbldr.toString().indexOf(str) + 15;
+		String temp = strbldr.toString().substring(start, strbldr.toString().indexOf(',', start));
+		System.out.println(cityName + " Temperature:");
+		System.out.println(temp + " Fahrenheit");
     }
 
 }
