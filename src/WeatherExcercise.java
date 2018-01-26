@@ -22,31 +22,43 @@ public class WeatherExcercise {
 	public static void main(String[] args) throws MalformedURLException, IOException{
 		// TODO Auto-generated method stub
 		
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-        System.out.println("Where are you?");
-        String cityName = sc.nextLine();
-        WeatherExcercise we = new WeatherExcercise();
-        we.getTemperature(cityName);
+		try {
+			@SuppressWarnings("resource")
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Where are you?" + "\n");
+			String cityName = sc.nextLine();
+			WeatherExcercise weatherObject = new WeatherExcercise();
+			String data = weatherObject.getTemperature(cityName);
+			String temperature = data.substring(0, data.indexOf(','));
+			System.out.println(temperature);
+		}
+		catch (IOException e) {
+            e.printStackTrace();
+		}
 
 	}
 	
-	public void getTemperature(String cityName) throws MalformedURLException, IOException{
+	public String getTemperature(String cityName) throws MalformedURLException, IOException{
         //returnTemperature
+		
 		String path = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&APPID=b083187d77e0904a1926547855fcfa57";
-		InputStream inpstr = new URL(path).openStream();
-		BufferedReader bfrdrdr = new BufferedReader(new InputStreamReader(inpstr, Charset.forName("UTF-8")));
-		StringBuilder strbldr = new StringBuilder();
+		InputStream inputStream = new URL(path).openStream();
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+		StringBuilder temperatureData = new StringBuilder();
+		String[] temperatureArray = new String[2];
 		int len;
-		while ((len = bfrdrdr.read()) != -1) {
-			strbldr.append((char) len);
+		while ((len = bufferedReader.read()) != -1) {
+			temperatureData.append((char) len);
 		}
-		System.out.println(strbldr);
 		String str = "\"main\":{\"temp\":";
-		int start = strbldr.toString().indexOf(str) + 15;
-		String temp = strbldr.toString().substring(start, strbldr.toString().indexOf(',', start));
-		System.out.println(cityName + " Temperature:");
-		System.out.println(temp + " Fahrenheit");
+		int start = temperatureData.toString().indexOf(str) + 15;
+		String temp = temperatureData.toString().substring(start, temperatureData.toString().indexOf(',', start));
+		StringBuilder data = new StringBuilder();
+		data.append(temp);
+		data.append(',');
+		data.append(cityName);
+		
+		return data.toString();
     }
 
 }
