@@ -18,7 +18,5 @@ public class WeatherTest {
 		String data = weatherObject.getTemperature("chicago");
 		String cityName = data.substring(data.indexOf(',')+1, data.length());
 		assertEquals("chicago",cityName.toLowerCase());
-		
 	}
-
 }
